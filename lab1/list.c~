@@ -14,9 +14,20 @@ typedef int (* CMP_FUNC)(COUNTRY * v1, COUNTRY * v2);
 */
 int add( COUNTRY ** list, char * name, int population, int area)
 {
-    /* СДЕЛАТЬ:
-    * функцию по описанию в тексте задания
-    */
+    // TODO: if country already exists - do not add it 
+    COUNTRY * country = (COUNTRY *)malloc(sizeof(COUNTRY));
+    if(country) {
+        strcpy(country->name, name);
+        country.population = population;
+        country.area = area;
+        // изменяем указатель (вставляем элемент в начало)
+        country->next = * list;
+        * list = contry;        
+    }
+    else {
+        printf("Cannot allocate memory for new country!\n");
+        return 1;
+    }
     return 0; /* ok */
 }
 
@@ -37,10 +48,11 @@ void delete(COUNTRY ** list, COUNTRY * v)
 */
 COUNTRY * find(COUNTRY * list, char * name)
 {
-    /* СДЕЛАТЬ:
-    * функцию по описанию в тексте задания
-    */
-    COUNTRY * p = NULL;
+    COUNTRY * p;
+    p = list;
+    while (p != NULL && p.name != name) {            
+        p = p->next;    
+    }
     return p;
 }
 
@@ -191,17 +203,18 @@ void dump(COUNTRY * list)
 * удаление всех элементов списка и
 * освобождение выделенной под эти элементы памяти 
 */
-void clear(COUNTRY * list)
+void clear(COUNTRY ** list)
 {
     /* DONE:
     * 
     */
-    COUNTRY * temp_pointer;
-    while(list != NULL) {
-        temp_pointer = list;
-        list = list->next;
-        free(temp_pointer);
-    }    
+    //COUNTRY * temp_pointer;
+    //while(list != NULL) {
+    //    temp_pointer = list;
+    //    list = list->next;
+    //    free(temp_pointer);
+    //}
+        
 }
 
 /* Загружает список стран из файла */
