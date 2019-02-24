@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "list.h"
+#define MAX_LINE_LENGTH 255
+#define DBNAME ./countries_db.csv
 
 /* Тип указателя на функцию для сравнения элементов списка */
 typedef int (* CMP_FUNC)(COUNTRY * v1, COUNTRY * v2);
@@ -18,11 +20,11 @@ int add( COUNTRY ** list, char * name, int population, int area)
     COUNTRY * country = (COUNTRY *)malloc(sizeof(COUNTRY));
     if(country) {
         strcpy(country->name, name);
-        country.population = population;
-        country.area = area;
+        country->population = population;
+        country->area = area;
         // изменяем указатель (вставляем элемент в начало)
         country->next = * list;
-        * list = contry;        
+        * list = country;        
     }
     else {
         printf("Cannot allocate memory for new country!\n");
@@ -64,7 +66,7 @@ COUNTRY * find(COUNTRY * list, char * name)
 {
     COUNTRY * p;
     p = list;
-    while (p != NULL && p.name != name) {            
+    while (p != NULL && p->name != name) {            
         p = p->next;   
     }
     return p;
@@ -127,13 +129,13 @@ int compare_name(COUNTRY *v1, COUNTRY *v2)
 
 int compare_area(COUNTRY *v1, COUNTRY *v2)
 {
-    int res = v1.area - v2.area;
+    int res = v1->area - v2->area;
     return res;
 }
 
 int compare_population(COUNTRY *v1, COUNTRY *v2)
 {
-    int res = v1.population - v2.population
+    int res = v1->population - v2->population;
     return res;
 }
 
@@ -177,30 +179,35 @@ int sort(COUNTRY ** list, CMP_FUNC compare)
 
 int sort_by_name(COUNTRY ** list)
 {
-    /* СДЕЛАТЬ:
-    * функцию по описанию в тексте задания
-    */
+    return sort(list, compare_name);
 }
 
 int sort_by_area(COUNTRY ** list)
 {
-    /* СДЕЛАТЬ:
-    * функцию по описанию в тексте задания
-    */
+    return sort(list, compare_area);
 }
 
 int sort_by_population(COUNTRY ** list)
 {
-    /* СДЕЛАТЬ:
-    * функцию по описанию в тексте задания
-    */
+    return sort(list, compare_population);
 }
 
 void print_country(COUNTRY * p)
 {
-    /* СДЕЛАТЬ:
-    * функцию по описанию в тексте задания
-    */
+    printf("%-10s", p->name);
+    if (p->population == 0) {
+        printf("%-10s", "не указано");
+    }
+    else {
+        printf("%-10i", p->population);
+    }   
+    if (p->area == 0) {
+        printf("%-10s", "не указано");
+    }
+    else {
+        printf("%-10i", p->area);
+    }     
+    printf("\n");
 }
 
 void dump(COUNTRY * list)

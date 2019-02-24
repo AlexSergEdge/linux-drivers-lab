@@ -18,7 +18,7 @@ int sort_by_area(COUNTRY ** list);
 int sort_by_population(COUNTRY ** list);
 void dump(COUNTRY * list);
 void print_country(COUNTRY * p);
-void clear(COUNTRY * list);
+void clear(COUNTRY ** list);
 COUNTRY * load();
 void save(COUNTRY * list);
 
