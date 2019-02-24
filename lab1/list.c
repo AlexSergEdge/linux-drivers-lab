@@ -36,9 +36,23 @@ int add( COUNTRY ** list, char * name, int population, int area)
 */
 void delete(COUNTRY ** list, COUNTRY * v)
 {
-    /* СДЕЛАТЬ:
-    * функцию по описанию в тексте задания
-    */
+    COUNTRY * pointer = * list;
+    COUNTRY * prev = NULL;
+    while (pointer != NULL) {
+        if (pointer == v) {
+            if (prev) {
+                prev->next = pointer->next;            
+            }
+            // Если prev=NULL то этот элемент первый в списке, меняем указатель list
+            else {
+                * list = pointer->next;
+            }
+            free(pointer);
+            break;
+        }
+        prev = pointer;
+        pointer = pointer->next;
+    }   
 }
 
 /*
@@ -51,7 +65,7 @@ COUNTRY * find(COUNTRY * list, char * name)
     COUNTRY * p;
     p = list;
     while (p != NULL && p.name != name) {            
-        p = p->next;    
+        p = p->next;   
     }
     return p;
 }
@@ -62,11 +76,12 @@ COUNTRY * find(COUNTRY * list, char * name)
 int count(COUNTRY * list)
 {
     int cnt = 0;
-
-    /* СДЕЛАТЬ:
-    * функцию по описанию в тексте задания
-    */
-
+    COUNTRY * p;
+    p = list;
+    while (p != NULL) {
+        p = p->next;
+        cnt++;
+    }
     return cnt;
 }
 
@@ -102,25 +117,24 @@ void quick_sort(COUNTRY ** ca, int first, int last, CMP_FUNC compare)
         quick_sort(ca, first, j, compare);
 }
 
+// Функции сравнения - возвращают 0 если элементы равны, отрицательное число, если первый меньше второго,
+// и положительное число, если второй меньше первого
 int compare_name(COUNTRY *v1, COUNTRY *v2)
 {
-    /* СДЕЛАТЬ:
-    * функцию по описанию в тексте задания
-    */   
+    int res = strcmp(v1->name, v2->name);
+    return res;     
 }
 
 int compare_area(COUNTRY *v1, COUNTRY *v2)
 {
-    /* СДЕЛАТЬ:
-    * функцию по описанию в тексте задания
-    */   
+    int res = v1.area - v2.area;
+    return res;
 }
 
 int compare_population(COUNTRY *v1, COUNTRY *v2)
 {
-    /* СДЕЛАТЬ:
-    * функцию по описанию в тексте задания
-    */   
+    int res = v1.population - v2.population
+    return res;
 }
 
 /* 
@@ -205,16 +219,16 @@ void dump(COUNTRY * list)
 */
 void clear(COUNTRY ** list)
 {
-    /* DONE:
-    * 
-    */
     //COUNTRY * temp_pointer;
     //while(list != NULL) {
     //    temp_pointer = list;
     //    list = list->next;
     //    free(temp_pointer);
     //}
-        
+    // Удаляется первый элемент списка на каждой итерации
+    while (* list != NULL) {
+        delete(list, * list);
+    }        
 }
 
 /* Загружает список стран из файла */
