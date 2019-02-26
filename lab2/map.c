@@ -15,34 +15,46 @@
 unsigned int hash(char * key)
 {
 /* 
-* СДЕЛАТЬ:
-* Просуммируйте все символы в строке и поделите результат по модулю 
+* Просуммируем все символы в строке и поделим результат по модулю 
 * MAP_SIZE
 */
+    unsigned int i = 0;
+    unsigned int sum = 0;
+    while (key[i]) {
+        sum += key[i];
+        i++;
+    }
+    return i % MAP_SIZE;
 }
 
 /* Добавляет элемент к хэш таблице */
 void map_add( COUNTRY ** map, char * name, int population, int area)
 {
-/* 
-* СДЕЛАТЬ:
-*/    
+    // Получаем значение хэша ключа name
+    //COUNTRY * country = map_find(map, name);
+    int hash_value = hash(name);
+    COUNTRY * country = find(map[hash_value], name);    
+    if (country) {
+        printf("Страна уже есть в хэш-таблице, обновляю данные\n");
+        country->population = population;
+        country->area = area;
+    }
+    else {
+        int res = add(&map[hash_value], name, population, area);     
+    }
 }
 
 /* Удаляет страну с указанным названием из хеш таблицы */
 void map_delete(COUNTRY ** map, char * name)
 {
-/* 
-* СДЕЛАТЬ:
-*/ 
+    //TODO: 
 }
 
 /* Ищет страну с указанным названием в хеш таблице */
 COUNTRY * map_find(COUNTRY ** map, char * name)
 {
-/* 
-* СДЕЛАТЬ:
-*/ 
+    int hash_value = hash(name);
+    return find(map[hash_value], name);
 }
 
 /* Печатает на экране все записи хеш таблицы */
@@ -66,7 +78,8 @@ void map_clear(COUNTRY ** map)
 {
     int cnt;
     for (cnt = 0; cnt < MAP_SIZE; cnt++)
-        clear(map[cnt]);
+        // Для согласованности типов добавил &        
+        clear(&map[cnt]);
     free(map);
 }
 

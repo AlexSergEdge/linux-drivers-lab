@@ -23,7 +23,8 @@ void undecorate_name(char * name) {
 int main(int argc, char * argv[])
 {
     setlocale(LC_ALL, "ru_RU.UTF8");
-    COUNTRY ** list;
+    COUNTRY ** list = map_create();
+    COUNTRY * list_pointer = list[0];
     //TODO: list = map_load();
     // Переменные для населения и площади
     int population;
@@ -40,6 +41,7 @@ int main(int argc, char * argv[])
             scanf("%d", &population);
             scanf("%d", &area);
             undecorate_name(name);
+            //hash(name);
             printf("Добавляю страну: %s\n", name);
             // TODO: map_add
         }
@@ -66,7 +68,7 @@ int main(int argc, char * argv[])
         }
         else if (strcmp(cmd, "save") == 0) {
             printf("Сохраняю в базу данных\n");
-            map_save(list);
+            //map_save(list);
         }
         else if (strcmp(cmd, "quit") == 0) {
             printf("Завершаю работу\n");
