@@ -23,9 +23,7 @@ void undecorate_name(char * name) {
 int main(int argc, char * argv[])
 {
     setlocale(LC_ALL, "ru_RU.UTF8");
-    COUNTRY ** list = map_create();
-    COUNTRY * list_pointer = list[0];
-    //TODO: list = map_load();
+    COUNTRY ** map = (COUNTRY **)map_load();
     // Переменные для населения и площади
     int population;
     int area;
@@ -34,41 +32,43 @@ int main(int argc, char * argv[])
     char * name = (char *)malloc(sizeof(char));
 
     for(;;) {
-        //printf("Введите команду\n");
+        printf("Введите команду:\n");
         scanf("%s", cmd);
         if (strcmp(cmd, "add") == 0) {
             scanf("%s", name);
             scanf("%d", &population);
             scanf("%d", &area);
             undecorate_name(name);
-            hash(name);
             printf("Добавляю страну: %s\n", name);
-            // TODO: map_add
+            map_add(map, name, population, area);
         }
         else if (strcmp(cmd, "delete") == 0) {
             scanf("%s", name);
             undecorate_name(name);
             printf("Удаляю страну: %s\n", name);
-            // TODO: map_delete
+            COUNTRY * del_map = map_find(map, name);
+            map_delete(map, del_map);
         }
         else if (strcmp(cmd, "dump") == 0) {
             printf("Вывожу страны\n");
-            //TODO: map_dump
+            map_dump(map);
         }
         else if (strcmp(cmd, "view") == 0) {
             scanf("%s", name);
             undecorate_name(name);
             printf("Вывожу информацию о стране: %s\n", name);
-            //TODO: map_find
-            //TODO: add print_country() ready ?
+            printf("|%-12s|%-12s|%-12s|\n", "Name", "Popularity", "Area");
+            printf("|------------|------------|------------|\n");
+            COUNTRY * info_map = map_find(map, name);
+            print_country(info_map);
         }
         else if (strcmp(cmd, "count") == 0) {
-            printf("Вывожу количество стран\n");
-            //TODO: add count() ready ?
+            printf("Вывожу количество стран:");
+            printf("%i\n",map_count(map));
         }
         else if (strcmp(cmd, "save") == 0) {
             printf("Сохраняю в базу данных\n");
-            //map_save(list);
+            map_save(map);
         }
         else if (strcmp(cmd, "quit") == 0) {
             printf("Завершаю работу\n");
@@ -82,7 +82,7 @@ int main(int argc, char * argv[])
     // Очищаем динамически выделенную память
     free(cmd);
     free(name);
-    //TODO: map_clear(list);
+    map_clear(map);
     
     return 0;
 }

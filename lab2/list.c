@@ -220,8 +220,6 @@ void print_country(COUNTRY * p)
 
 void dump(COUNTRY * list)
 {
-    printf("|%-12s|%-12s|%-12s|\n", "Name", "Popularity", "Area");
-    printf("|------------|------------|------------|\n");
     COUNTRY * p;
     p = list; /* Начало списка */
     while (p != NULL) {

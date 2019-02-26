@@ -47,9 +47,15 @@ void map_add( COUNTRY ** map, char * name, int population, int area)
 /* Удаляет страну с указанным названием из хеш таблицы */
 void map_delete(COUNTRY ** map, char * name)
 {
-/* 
-* СДЕЛАТЬ:
-*/ 
+    int hash_value = hash(name);
+    COUNTRY * country = find(map[hash_value], name);
+    if (country) {    
+        print_country(country);
+        delete(map, country);
+    }
+    else {
+        printf("Страны %s не существует!\n", name);
+    }
 }
 
 /* Ищет страну с указанным названием в хеш таблице */
@@ -62,9 +68,31 @@ COUNTRY * map_find(COUNTRY ** map, char * name)
 /* Печатает на экране все записи хеш таблицы */
 void map_dump(COUNTRY ** map)
 {
-/* 
-* СДЕЛАТЬ:
-*/
+    printf("|%-12s|%-12s|%-12s|\n", "Name", "Popularity", "Area");
+    printf("|------------|------------|------------|\n");
+    COUNTRY * pointer;
+    int i = 0;
+    while (i != MAP_SIZE) {
+        if (map[i]) {
+            dump(map[i]);
+        }        
+        i++;
+    }
+}
+
+/* Подсчет количества элементов */
+int map_count(COUNTRY ** map)
+{
+    COUNTRY * pointer;
+    int i = 0;
+    int summ = 0;
+    while (i != MAP_SIZE) {
+        if (map[i]) {
+            summ += count(map[i]);
+        }
+        i++;
+    }
+    return summ;
 }
 
 /* Создает хэш таблицу */
