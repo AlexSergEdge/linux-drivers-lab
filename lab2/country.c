@@ -24,7 +24,7 @@ int main(int argc, char * argv[])
 {
     setlocale(LC_ALL, "ru_RU.UTF8");
     COUNTRY ** list;
-    list = map_load();
+    //TODO: list = map_load();
     // Переменные для населения и площади
     int population;
     int area;
@@ -37,15 +37,15 @@ int main(int argc, char * argv[])
         scanf("%s", cmd);
         if (strcmp(cmd, "add") == 0) {
             scanf("%s", name);
-            scanf("%i", population);
-            scanf("%i", area);
-            undecorate_name(&name);
+            scanf("%d", &population);
+            scanf("%d", &area);
+            undecorate_name(name);
             printf("Добавляю страну: %s\n", name);
             // TODO: map_add
         }
         else if (strcmp(cmd, "delete") == 0) {
-            scanf("%s", name)'
-            undecorate_name(&name);
+            scanf("%s", name);
+            undecorate_name(name);
             printf("Удаляю страну: %s\n", name);
             // TODO: map_delete
         }
@@ -54,8 +54,8 @@ int main(int argc, char * argv[])
             //TODO: map_dump
         }
         else if (strcmp(cmd, "view") == 0) {
-            scanf("%s", name)'
-            undecorate_name(&name);
+            scanf("%s", name);
+            undecorate_name(name);
             printf("Вывожу информацию о стране: %s\n", name);
             //TODO: map_find
             //TODO: add print_country() ready ?
@@ -69,19 +69,18 @@ int main(int argc, char * argv[])
             map_save(list);
         }
         else if (strcmp(cmd, "quit") == 0) {
-            printf("Звершаю работу\n");
+            printf("Завершаю работу\n");
             break;
         }
         else {
             printf("Неизвестная команда\n");
         }
-        
     }
 
     // Очищаем динамически выделенную память
     free(cmd);
     free(name);
-    map_clear(list);
+    //TODO: map_clear(list);
     
     return 0;
 }
