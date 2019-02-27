@@ -32,7 +32,7 @@ int main(int argc, char * argv[])
     char * name = (char *)malloc(sizeof(char));
 
     for(;;) {
-        printf("Введите команду:\n");
+        printf("Введите команду: \n");
         scanf("%s", cmd);
         if (strcmp(cmd, "add") == 0) {
             scanf("%s", name);
