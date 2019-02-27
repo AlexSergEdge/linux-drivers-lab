@@ -49,7 +49,9 @@ void delete(COUNTRY ** list, COUNTRY * v)
     COUNTRY * pointer = * list;
     COUNTRY * prev = NULL;
     while (pointer != NULL) {
+        printf("Pointers are equal %d %d\n", pointer, v);
         if (pointer == v) {
+            
             if (prev) {
                 prev->next = pointer->next;            
             }
@@ -220,8 +222,6 @@ void print_country(COUNTRY * p)
 
 void dump(COUNTRY * list)
 {
-    printf("|%-12s|%-12s|%-12s|\n", "Name", "Popularity", "Area");
-    printf("|------------|------------|------------|\n");
     COUNTRY * p;
     p = list; /* Начало списка */
     while (p != NULL) {

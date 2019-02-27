@@ -51,7 +51,7 @@ void map_delete(COUNTRY ** map, char * name)
     COUNTRY * country = find(map[hash_value], name);
     if (country) {    
         print_country(country);
-        delete(map, country);
+        delete(&map[hash_value], country);
     }
     else {
         printf("Страны %s не существует!\n", name);
