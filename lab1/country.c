@@ -63,8 +63,8 @@ int main(int argc, char * argv[])
             return 0;
         }
         // Выводим информацию об удаляемой стране
-        printf("|%-12s|%-12s|%-12s|\n", "Name", "Popularity", "Area");
-        printf("|------------|------------|------------|\n");
+        printf("|%-20s|%-20s|%-20s|\n", "Name", "Popularity", "Area");
+        printf("|--------------------|--------------------|--------------------|\n");
         print_country(del_country);
         // Удаляем страну
         delete(&list, del_country);                                            
@@ -102,8 +102,8 @@ int main(int argc, char * argv[])
             return 0;
         }
         printf("Вывожу информацию о стране...\n");
-        printf("|%-12s|%-12s|%-12s|\n", "Name", "Popularity", "Area");
-        printf("|------------|------------|------------|\n");
+        printf("|%-20s|%-20s|%-20s|\n", "Name", "Popularity", "Area");
+        printf("|--------------------|--------------------|--------------------|\n");
         COUNTRY * info_country;        
         info_country = find(list, argv[2]);
         if (info_country == NULL) {

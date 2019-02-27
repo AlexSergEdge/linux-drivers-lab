@@ -68,8 +68,8 @@ COUNTRY * map_find(COUNTRY ** map, char * name)
 /* Печатает на экране все записи хеш таблицы */
 void map_dump(COUNTRY ** map)
 {
-    printf("|%-12s|%-12s|%-12s|\n", "Name", "Popularity", "Area");
-    printf("|------------|------------|------------|\n");
+    printf("|%-20s|%-20s|%-20s|\n", "Name", "Popularity", "Area");
+    printf("|--------------------|--------------------|--------------------|\n");
     COUNTRY * pointer;
     int i = 0;
     while (i != MAP_SIZE) {

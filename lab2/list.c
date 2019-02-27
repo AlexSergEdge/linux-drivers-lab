@@ -19,10 +19,7 @@ int add( COUNTRY ** list, char * name, int population, int area)
     COUNTRY * country = find(*list, name);  
     // Если страна с таким именем уже есть в базе данных, не добавляем её, а обновляем данные
     if (country) {
-        //printf("Страна с таким именем уже существует! Перезаписываю данные о населении и площади!\n");
         printf("Страна с таким именем уже существует!\n");
-        //country->population = population;
-        //country->area = area;
         return 0;
     } 
     country = (COUNTRY *)malloc(sizeof(COUNTRY));
@@ -202,18 +199,18 @@ int sort_by_population(COUNTRY ** list)
 
 void print_country(COUNTRY * p)
 {
-    printf("|%-12s|", p->name);
+    printf("|%-20s|", p->name);
     if (p->population == 0) {
-        printf("%-12s|", "not defined");
+        printf("%-20s|", "not defined");
     }
     else {
-        printf("%-12i|", p->population);
+        printf("%-20i|", p->population);
     }   
     if (p->area == 0) {
-        printf("%-12s|", "not defined");
+        printf("%-20s|", "not defined");
     }
     else {
-        printf("%-12i|", p->area);
+        printf("%-20i|", p->area);
     }     
     printf("\n");
 }

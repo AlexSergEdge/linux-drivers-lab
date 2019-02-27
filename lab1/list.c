@@ -201,26 +201,26 @@ int sort_by_population(COUNTRY ** list)
 
 void print_country(COUNTRY * p)
 {
-    printf("|%-12s|", p->name);
+    printf("|%-20s|", p->name);
     if (p->population == 0) {
-        printf("%-12s|", "not defined");
+        printf("%-20s|", "not defined");
     }
     else {
-        printf("%-12i|", p->population);
+        printf("%-20i|", p->population);
     }   
     if (p->area == 0) {
-        printf("%-12s|", "not defined");
+        printf("%-20s|", "not defined");
     }
     else {
-        printf("%-12i|", p->area);
+        printf("%-20i|", p->area);
     }     
     printf("\n");
 }
 
 void dump(COUNTRY * list)
 {
-    printf("|%-12s|%-12s|%-12s|\n", "Name", "Popularity", "Area");
-    printf("|------------|------------|------------|\n");
+    printf("|%-20s|%-20s|%-20s|\n", "Name", "Popularity", "Area");
+    printf("|--------------------|--------------------|--------------------|\n");
     COUNTRY * p;
     p = list; /* Начало списка */
     while (p != NULL) {

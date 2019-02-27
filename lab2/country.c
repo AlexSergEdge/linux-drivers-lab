@@ -57,8 +57,8 @@ int main(int argc, char * argv[])
             scanf("%s", name);
             undecorate_name(name);
             printf("Вывожу информацию о стране: %s\n", name);
-            printf("|%-12s|%-12s|%-12s|\n", "Name", "Popularity", "Area");
-            printf("|------------|------------|------------|\n");
+            printf("|%-20s|%-20s|%-20s|\n", "Name", "Popularity", "Area");
+            printf("|--------------------|--------------------|--------------------|\n");
             COUNTRY * info_map = (COUNTRY *)map_find(map, name);
             print_country(info_map);
         }
