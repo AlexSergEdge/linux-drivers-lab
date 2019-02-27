@@ -12,7 +12,7 @@
 
 // Функция замены нижнего подчеркивания в названии страны на пробел
 void undecorate_name(char * name) {
-    int cnt;
+    int cnt = 0;
     while (name[cnt]) {
         if (name[cnt] == '_')
             name[cnt] = ' ';
@@ -27,38 +27,33 @@ int main(int argc, char * argv[])
     // Переменные для населения и площади
     int population;
     int area;
-    // Выделяем динамически память под команду и название страны
-    char * cmd = (char *)malloc(sizeof(char));
+    // Выделяем массивы под имя и команду
     char name_static[255];
+    char cmd_static[16];
 
     for(;;) {
         printf("Введите команду: \n");
-        scanf("%s", cmd);
-        if (strcmp(cmd, "add") == 0) {
-            //char * name = (char *)malloc(sizeof(char));
+        scanf("%s", &cmd_static[0]);
+        if (strcmp(cmd_static, "add") == 0) {
             scanf("%s", &name_static[0]);
             scanf("%d", &population);
             scanf("%d", &area);
             undecorate_name(&name_static[0]);
             printf("Добавляю страну: %s\n", name_static);
             map_add(map, &name_static[0], population, area);
-            //free(name);
         }
-        else if (strcmp(cmd, "delete") == 0) {
-            //char * name = (char *)malloc(sizeof(char));
+        else if (strcmp(cmd_static, "delete") == 0) {
             scanf("%s", &name_static[0]);
             undecorate_name(&name_static[0]);
             printf("Удаляю страну: %s\n", name_static);
             COUNTRY * del_map = (COUNTRY *)map_find(map, &name_static[0]);
             map_delete(map, del_map);
-            //free(name);
         }
-        else if (strcmp(cmd, "dump") == 0) {
+        else if (strcmp(cmd_static, "dump") == 0) {
             printf("Вывожу страны\n");
             map_dump(map);
         }
-        else if (strcmp(cmd, "view") == 0) {
-            //char * name = (char *)malloc(sizeof(char));
+        else if (strcmp(cmd_static, "view") == 0) {
             scanf("%s", &name_static[0]);
             undecorate_name(&name_static[0]);
             printf("Вывожу информацию о стране: %s\n", name_static);
@@ -66,17 +61,16 @@ int main(int argc, char * argv[])
             printf("|--------------------|--------------------|--------------------|\n");
             COUNTRY * info_map = (COUNTRY *)map_find(map, &name_static[0]);
             print_country(info_map);
-            //free(name);
         }
-        else if (strcmp(cmd, "count") == 0) {
+        else if (strcmp(cmd_static, "count") == 0) {
             printf("Вывожу количество стран: ");
             printf("%i\n",map_count(map));
         }
-        else if (strcmp(cmd, "save") == 0) {
+        else if (strcmp(cmd_static, "save") == 0) {
             printf("Сохраняю в базу данных\n");
             map_save(map);
         }
-        else if (strcmp(cmd, "quit") == 0) {
+        else if (strcmp(cmd_static, "quit") == 0) {
             printf("Завершаю работу\n");
             break;
         }
@@ -84,9 +78,6 @@ int main(int argc, char * argv[])
             printf("Неизвестная команда\n");
         }
     }
-
-    // Очищаем динамически выделенную память
-    free(cmd);
     
     map_clear(map);
     
