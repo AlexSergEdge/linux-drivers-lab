@@ -16,13 +16,15 @@ typedef int (* CMP_FUNC)(COUNTRY * v1, COUNTRY * v2);
 */
 int add( COUNTRY ** list, char * name, int population, int area)
 {
-    // Если страна с таким именем уже есть в базе данных, не добавляем её
-    if (find(*list, name)) {
-        printf("Страна с таким именем уже существует!\n");
+    // Если страна с таким именем уже есть в базе данных, не добавляем её, а обновляем данные
+    COUNTRY * country = find(*list, name);    
+    if (country) {
+        printf("Страна с таким именем уже существует! Обновляю данные!\n");
+        country->population = population;
+        country->area = area;
         return 0;
-    }
-     
-    COUNTRY * country = (COUNTRY *)malloc(sizeof(COUNTRY));
+    } 
+    country = (COUNTRY *)malloc(sizeof(COUNTRY));
     if(country) {
         strcpy(country->name, name);
         country->population = population;
@@ -233,12 +235,6 @@ void dump(COUNTRY * list)
 */
 void clear(COUNTRY ** list)
 {
-    //COUNTRY * temp_pointer;
-    //while(list != NULL) {
-    //    temp_pointer = list;
-    //    list = list->next;
-    //    free(temp_pointer);
-    //}
     // Удаляется первый элемент списка на каждой итерации
     while (* list != NULL) {
         delete(list, * list);
