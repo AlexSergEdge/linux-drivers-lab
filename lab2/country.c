@@ -63,7 +63,7 @@ int main(int argc, char * argv[])
             print_country(info_map);
         }
         else if (strcmp(cmd, "count") == 0) {
-            printf("Вывожу количество стран:");
+            printf("Вывожу количество стран: ");
             printf("%i\n",map_count(map));
         }
         else if (strcmp(cmd, "save") == 0) {
