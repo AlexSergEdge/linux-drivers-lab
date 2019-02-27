@@ -29,38 +29,44 @@ int main(int argc, char * argv[])
     int area;
     // Выделяем динамически память под команду и название страны
     char * cmd = (char *)malloc(sizeof(char));
-    char * name = (char *)malloc(sizeof(char));
+    char name_static[255];
 
     for(;;) {
         printf("Введите команду: \n");
         scanf("%s", cmd);
         if (strcmp(cmd, "add") == 0) {
-            scanf("%s", name);
+            //char * name = (char *)malloc(sizeof(char));
+            scanf("%s", &name_static[0]);
             scanf("%d", &population);
             scanf("%d", &area);
-            undecorate_name(name);
-            printf("Добавляю страну: %s\n", name);
-            map_add(map, name, population, area);
+            undecorate_name(&name_static[0]);
+            printf("Добавляю страну: %s\n", name_static);
+            map_add(map, &name_static[0], population, area);
+            //free(name);
         }
         else if (strcmp(cmd, "delete") == 0) {
-            scanf("%s", name);
-            undecorate_name(name);
-            printf("Удаляю страну: %s\n", name);
-            COUNTRY * del_map = (COUNTRY *)map_find(map, name);
+            //char * name = (char *)malloc(sizeof(char));
+            scanf("%s", &name_static[0]);
+            undecorate_name(&name_static[0]);
+            printf("Удаляю страну: %s\n", name_static);
+            COUNTRY * del_map = (COUNTRY *)map_find(map, &name_static[0]);
             map_delete(map, del_map);
+            //free(name);
         }
         else if (strcmp(cmd, "dump") == 0) {
             printf("Вывожу страны\n");
             map_dump(map);
         }
         else if (strcmp(cmd, "view") == 0) {
-            scanf("%s", name);
-            undecorate_name(name);
-            printf("Вывожу информацию о стране: %s\n", name);
+            //char * name = (char *)malloc(sizeof(char));
+            scanf("%s", &name_static[0]);
+            undecorate_name(&name_static[0]);
+            printf("Вывожу информацию о стране: %s\n", name_static);
             printf("|%-20s|%-20s|%-20s|\n", "Name", "Popularity", "Area");
             printf("|--------------------|--------------------|--------------------|\n");
-            COUNTRY * info_map = (COUNTRY *)map_find(map, name);
+            COUNTRY * info_map = (COUNTRY *)map_find(map, &name_static[0]);
             print_country(info_map);
+            //free(name);
         }
         else if (strcmp(cmd, "count") == 0) {
             printf("Вывожу количество стран: ");
@@ -81,7 +87,7 @@ int main(int argc, char * argv[])
 
     // Очищаем динамически выделенную память
     free(cmd);
-    free(name);
+    
     map_clear(map);
     
     return 0;
