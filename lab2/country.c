@@ -10,6 +10,11 @@
 #include "list.h"
 #include <locale.h>
 
+#include <ctype.h>
+#include <wchar.h>
+#include <wctype.h>
+
+
 // Функция замены нижнего подчеркивания в названии страны на пробел
 void undecorate_name(char * name) {
     int cnt = 0;

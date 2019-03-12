@@ -8,7 +8,6 @@
 /* Тип указателя на функцию для сравнения элементов списка */
 typedef int (* CMP_FUNC)(COUNTRY * v1, COUNTRY * v2);
 
-
 /*
 * Выделяет динамическую память для нового элемента списка list,
 * инициализирует поля и добавляет элемент в начало списка
@@ -24,7 +23,8 @@ int add( COUNTRY ** list, char * name, int population, int area)
         country->population = population;
         country->area = area;
         return 0;
-    } 
+    }
+     
     country = (COUNTRY *)malloc(sizeof(COUNTRY));
     if(country) {
         strcpy(country->name, name);
@@ -202,26 +202,26 @@ int sort_by_population(COUNTRY ** list)
 
 void print_country(COUNTRY * p)
 {
-    printf("|%-20s|", p->name);
+    printf("|%-12s|", p->name);
     if (p->population == 0) {
-        printf("%-20s|", "not defined");
+        printf("%-12s|", "not defined");
     }
     else {
-        printf("%-20i|", p->population);
+        printf("%-12i|", p->population);
     }   
     if (p->area == 0) {
-        printf("%-20s|", "not defined");
+        printf("%-12s|", "not defined");
     }
     else {
-        printf("%-20i|", p->area);
+        printf("%-12i|", p->area);
     }     
     printf("\n");
 }
 
 void dump(COUNTRY * list)
 {
-    printf("|%-20s|%-20s|%-20s|\n", "Name", "Popularity", "Area");
-    printf("|--------------------|--------------------|--------------------|\n");
+    printf("|%-12s|%-12s|%-12s|\n", "Name", "Popularity", "Area");
+    printf("|------------|------------|------------|\n");
     COUNTRY * p;
     p = list; /* Начало списка */
     while (p != NULL) {

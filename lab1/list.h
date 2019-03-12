@@ -8,7 +8,6 @@ typedef struct _COUNTRY {
     struct _COUNTRY * next;
 } COUNTRY;
 
-
 int add( COUNTRY ** list, char * name, int population, int area);
 void delete(COUNTRY ** list, COUNTRY * v);
 COUNTRY * find(COUNTRY * list, char * name);

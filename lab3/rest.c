@@ -55,10 +55,8 @@ int connect_to_server() {
 int send_request_to_server() {
 	int request_length = 0;
 	int n = 0;
-	//char * request = "GET / HTTP/1.0\r\nHost: ";
-	//strcat(request, dns_server_name);
-	//strcat(request, "\r\n\r\n");
 	char * request = "GET / HTTP/1.0\r\nHost: www.iu3.bmstu.ru\r\n\r\n";
+	request = "GET /WebApi/time?type=local&format=unix HTTP/1.0\r\n\r\n";
 	char server_response[256];
 	// Определяем длину запроса
 	request_length = strlen(request);
