@@ -8,7 +8,7 @@
 #define prefix "http://"
 #define dns_server_name "www.iu3.bmstu.ru"
 #define local_path "/WebApi/time"
-#define http_port 80
+#define http_port 8090
 
 // Глобальная переменная для сокета
 int mysocket;
@@ -101,4 +101,5 @@ int main(int argc, char * argv[])
 }
 
 
-
+// rest get -t local -f unix
+// rest post
