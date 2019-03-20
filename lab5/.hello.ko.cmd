@@ -1,0 +1,1 @@
+cmd_/home/me/linux-drivers-lab/lab5/hello.ko := ld -r -m elf_i386 -T ./scripts/module-common.lds --build-id  -o /home/me/linux-drivers-lab/lab5/hello.ko /home/me/linux-drivers-lab/lab5/hello.o /home/me/linux-drivers-lab/lab5/hello.mod.o

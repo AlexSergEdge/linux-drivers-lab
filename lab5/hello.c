@@ -6,6 +6,8 @@
 #include <linux/cdev.h>
 #include <linux/fs.h>
 #include <asm/uaccess.h> 
+#include <linux/string.h>
+#include <linux/sched.h>
 
 static dev_t dev;
 static struct cdev c_dev;
@@ -16,6 +18,40 @@ static int my_close(struct inode *inode, struct file *file);
 static ssize_t my_read(struct file *filp, char *buffer, size_t length, loff_t * offset);
 static ssize_t my_write(struct file *filp, const char *buff, size_t len, loff_t * off);
 
+
+// Определяем сообщение
+#define MAX_MESSAGE_LENGTH 8192
+char message[MAX_MESSAGE_LENGTH];
+int count;
+
+// Функция печатает все процессы ядра
+static void print_process_info(void) {
+	// Структура типа task_struct
+	struct task_struct * task_list;
+	size_t task_counter = 0;
+	// Для каждого процесса
+	size_t total_bytes = 0;
+	char name_char[16];
+	char pid_char[16];
+	char task_number_char[16]; 
+	for_each_process(task_list) {
+		total_bytes += strlen("name: ") + sizeof(task_list->comm) + strlen(" pid:")+ sizeof(task_list->pid) + strlen("\n");
+		// Присоединяем данные  об имени и id к строке message
+		if (total_bytes <= MAX_MESSAGE_LENGTH) {
+			task_counter++;
+			sprintf(name_char, "%s", task_list->comm);
+			sprintf(pid_char, "%d", task_list->pid);
+			sprintf(task_number_char, "%d", task_counter);
+
+			strcat(message, task_number_char);
+			strcat(message, ": name: ");
+			strcat(message, name_char);
+			strcat(message, " pid:");
+			strcat(message, pid_char);
+			strcat(message, "\n");
+		}
+	}
+}
 
 static struct file_operations hello_fops =
 {
@@ -76,6 +112,8 @@ err:
 
 static int my_open(struct inode *inode, struct file *file)
 {
+	count = 0;
+	print_process_info();
 	return 0;
 }
 
@@ -89,7 +127,12 @@ static ssize_t my_read(struct file *filp,
                            size_t length, /* длина буфера */
                            loff_t * offset)
 {
-	char ch = 'Q';
+	// Возвращаем символ из сообщения со списком процессов
+	if (!message[count]) {
+		return 0;
+	}
+	char ch = message[count];
+	count++;
     if (copy_to_user(buffer, &ch, sizeof(ch)))
 		return -EFAULT;
 	return sizeof(ch); /* количество байт возвращаемых драйвером в буфере */
