@@ -1,3 +1,4 @@
+#!/bin/bash
 echo ---Processes before run:---
 lsmod | head -5
 echo ---Load module:---
