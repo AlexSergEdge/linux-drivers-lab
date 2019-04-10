@@ -1,0 +1,4 @@
+rest: listpci.o
+	gcc listpci.c -o listpci
+clean:
+	rm listpci listpci.o

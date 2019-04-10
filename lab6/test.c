@@ -26,12 +26,7 @@ typedef struct led {
 
 #define STATE_ALL -1
 
-//void print_usage(void);
-//void led_reset(void);
-//void led_state(int led_n);
-//void led_off(int led_n);
-//void led_on(int led_n);
-
+// To use NewMakefile use make -f <filename> flag
 
 void led_reset(void) {
     int file;
